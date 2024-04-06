@@ -13,33 +13,31 @@ export const http = axios.create({
 // - apiMiddleware should return a promise. so returning the .then() or awaited value
 // is not correct.
 
-const HTTP_SERVICE = {
-  refreshIsCalled: false,
-  async refreshCaller() {
-    return new Promise((resolve, reject) => {
-      if (!this.refreshIsCalled) {
-        this.refreshIsCalled = true;
-        setTimeout(() => {
-          http.post(PATHS.refresh, {
-            refreshToken: localStorage.getItem("refreshToken"),
-          }).then((resp) => {
-            localStorage.setItem("accessToken", resp.data.accessToken);
-            resolve(resp.data.accessToken);
-          }).catch((error) => {
-            reject(error);
-          }).finally(() => {
-            setTimeout(() => {
-              this.refreshIsCalled = true;
-            }, 1000);
-          });
-        }, 300);
-      } else {
-        resolve(localStorage.getItem("accessToken"));
-      }
+interface HTTPService {
+  refreshPromise: null | Promise<any>;
+  refreshCaller: () => Promise<any>;
+  apiMiddleware: (callOptions: AxiosRequestConfig) => Promise<any>;
+}
+
+const HTTP_SERVICE: HTTPService = {
+  refreshPromise: null,
+  refreshCaller() {
+    if (this.refreshPromise) {
+      return this.refreshPromise;
+    }
+    this.refreshPromise = http.post(PATHS.refresh, {
+      refreshToken: localStorage.getItem("refreshToken"),
+    }).then((resp) => {
+      localStorage.setItem("accessToken", resp.data.accessToken);
+      return Promise.resolve(resp.data.accessToken);
+    }).catch((error) => {
+      localStorage.setItem("accessToken", "");
+      return Promise.reject(error);
     });
+    return this.refreshPromise;
   },
-  async apiMiddleware(callOptions: AxiosRequestConfig) {
-    const p = await http(callOptions).then((resp) => {
+  apiMiddleware(callOptions: AxiosRequestConfig) {
+    return http(callOptions).then((resp) => {
       return Promise.resolve(resp);
     }).catch(async (error) => {
       if (error.response.status === 401) {
@@ -49,14 +47,12 @@ const HTTP_SERVICE = {
         const failedConfig = await failedReq;
 
         failedConfig.headers.Authorization = `Bearer ${refreshResult}`;
-        const res = await http(failedConfig).then((resp) => {
+        return http(failedConfig).then((resp) => {
           return Promise.resolve(resp);
         });
-        return res;
       }
       return Promise.reject(error);
     });
-    return p;
   },
 };
 

@@ -1,5 +1,5 @@
 import axios, { AxiosHeaderValue, AxiosRequestConfig } from "axios";
-import { Authorization, BASE_URL } from "@app/services/config";
+import { getAuthToken, BASE_URL } from "@app/services/config";
 import PATHS from "@app/services/paths";
 
 export const http = axios.create({
@@ -18,7 +18,7 @@ interface HTTPService {
   refreshCaller: () => Promise<any>;
   apiMiddleware: (callOptions: AxiosRequestConfig) => Promise<any>;
 }
-
+// ToDo: if refreshToken receives 401, we have to tell login page to issue_refresh=true
 const HTTP_SERVICE: HTTPService = {
   refreshPromise: null,
   refreshCaller() {
@@ -36,19 +36,21 @@ const HTTP_SERVICE: HTTPService = {
     });
     return this.refreshPromise;
   },
-  apiMiddleware(callOptions: AxiosRequestConfig) {
+  async apiMiddleware(callOptions: AxiosRequestConfig) {
     return http(callOptions).then((resp) => {
       return Promise.resolve(resp);
     }).catch(async (error) => {
+      const failedConfig = error.response.config;
       if (error.response.status === 401) {
-        const failedReq = Promise.resolve(error.response.config);
-
-        const refreshResult = await this.refreshCaller();
-        const failedConfig = await failedReq;
-
-        failedConfig.headers.Authorization = `Bearer ${refreshResult}`;
-        return http(failedConfig).then((resp) => {
-          return Promise.resolve(resp);
+        return this.refreshCaller().then(async (refreshResult) => {
+          failedConfig.headers.Authorization = `Bearer ${refreshResult}`;
+          return http(failedConfig).then((resp) => {
+            return Promise.resolve(resp);
+          });
+        }).catch((e) => {
+          return Promise.reject(e);
+        }).finally(() => {
+          this.refreshPromise = null;
         });
       }
       return Promise.reject(error);
@@ -67,7 +69,7 @@ export function GET(
     url,
     headers: {
       ...customHeaders,
-      ...(!disableAuth && { Authorization }),
+      ...(!disableAuth && { Authorization: getAuthToken() }),
     },
     ...config,
   });
@@ -86,7 +88,7 @@ export function POST<D>(
     data,
     headers: {
       ...customHeaders,
-      ...(!disableAuth && { Authorization }),
+      ...(!disableAuth && { Authorization: getAuthToken() }),
     },
     ...config,
   });

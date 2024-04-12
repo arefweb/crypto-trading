@@ -32,6 +32,7 @@ const HTTP_SERVICE: HTTPService = {
       return Promise.resolve(resp.data.accessToken);
     }).catch((error) => {
       localStorage.setItem("accessToken", "");
+      localStorage.setItem("refreshToken", "");
       return Promise.reject(error);
     });
     return this.refreshPromise;

@@ -10,7 +10,7 @@ export const http = axios.create({
 // - As each API function call creates a new function execution context,
 // we don't save failed requests config in an array. instead we preserve
 // the config in a Promise, so later we can call it.
-// - apiMiddleware should return a promise. so returning the .then() or awaited value
+// - apiMiddleware should return a promise. so returning the .then() or awaited values
 // is not correct.
 
 interface HTTPService {
@@ -18,7 +18,7 @@ interface HTTPService {
   refreshCaller: () => Promise<any>;
   apiMiddleware: (callOptions: AxiosRequestConfig) => Promise<any>;
 }
-// ToDo: if refreshToken receives 401, we have to tell login page to issue_refresh=true
+
 const HTTP_SERVICE: HTTPService = {
   refreshPromise: null,
   refreshCaller() {

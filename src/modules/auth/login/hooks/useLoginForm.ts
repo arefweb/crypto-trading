@@ -18,10 +18,15 @@ const useLoginForm = () => {
   } = useForm<LoginInputs>();
 
   function onSubmit(data: LoginInputs) {
-    authService.login(data).then((resp) => {
-      const { username, accessToken }: LoginResp = resp.data;
+    const hasRefresh = localStorage.getItem("refreshToken");
+    authService.login(
+      data,
+      { ...(!hasRefresh && { issue_refresh: true }) },
+    ).then((resp) => {
+      const { username, accessToken, refreshToken }: LoginResp = resp.data;
       if (resp.statusText === "OK") {
         localStorage.setItem("accessToken", accessToken);
+        if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
         dispatch(setLogin(true));
         dispatch(setUsername(username));
         navigate(from, { replace: true });

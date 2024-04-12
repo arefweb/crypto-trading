@@ -21,7 +21,10 @@ module.exports = {
     ],
     "import/no-absolute-path": "off",
     "react/react-in-jsx-scope": "off",
-    "react/function-component-definition": "off",
+    "react/function-component-definition": ["error", {
+      namedComponents: 'function-declaration',
+      unnamedComponents: 'arrow-function',
+    },],
     "import/extensions": "off",
     "quotes": ["error", "double", { "allowTemplateLiterals": true, "avoidEscape": true }],
     "@typescript-eslint/quotes": ["error", "double", { "allowTemplateLiterals": true, "avoidEscape": true }],

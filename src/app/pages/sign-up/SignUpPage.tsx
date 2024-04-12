@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import SignUpContainer from "@modules/auth/sign-up/components/SignUpContainer";
 
-const SignUpPage = () => {
+function SignUpPage() {
   return (
     <div>
       <h3>Sign Up</h3>
@@ -10,6 +10,6 @@ const SignUpPage = () => {
       <Link to="/login">Login</Link>
     </div>
   );
-};
+}
 
 export default SignUpPage;

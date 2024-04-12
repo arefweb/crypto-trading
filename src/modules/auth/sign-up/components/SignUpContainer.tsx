@@ -1,6 +1,6 @@
 import useSignupForm from "../hooks/useSignupForm";
 
-const SignUpContainer = () => {
+function SignUpContainer() {
   const { handleSubmit, onSubmit, register } = useSignupForm();
 
   return (
@@ -34,6 +34,6 @@ const SignUpContainer = () => {
       </div>
     </form>
   );
-};
+}
 
 export default SignUpContainer;

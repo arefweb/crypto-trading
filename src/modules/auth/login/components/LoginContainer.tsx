@@ -1,6 +1,6 @@
 import useLoginForm from "../hooks/useLoginForm";
 
-const LoginContainer = () => {
+function LoginContainer() {
   const { handleSubmit, register, onSubmit } = useLoginForm();
 
   return (
@@ -22,6 +22,6 @@ const LoginContainer = () => {
       <button type="submit">Submit</button>
     </form>
   );
-};
+}
 
 export default LoginContainer;

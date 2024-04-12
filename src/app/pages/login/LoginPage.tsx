@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useLoginNavigate from "@app/hooks/useLoginNavigate";
 import LoginContainer from "@modules/auth/login/components/LoginContainer";
 
-const LoginPage = () => {
+function LoginPage() {
   const { visible } = useLoginNavigate();
 
   if (!visible) {
@@ -13,10 +13,10 @@ const LoginPage = () => {
     <div>
       <h3>Login</h3>
       <LoginContainer />
-      <p>Don't have an account?</p>
+      <p>Don&apos;t have an account?</p>
       <Link to="/sign-up">Sign Up</Link>
     </div>
   );
-};
+}
 
 export default LoginPage;

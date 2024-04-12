@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode
 }
 
-const AppLayout = ({ children }: Props) => {
+function AppLayout({ children }: Props) {
   const { isLoading } = useLoginState();
   if (isLoading) {
     return <div>Loading...</div>;
@@ -16,6 +16,6 @@ const AppLayout = ({ children }: Props) => {
       {children}
     </div>
   );
-};
+}
 
 export default AppLayout;

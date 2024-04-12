@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  position: relative;
+}
+
+.sidebar {
+  flex-basis: 240px;
+  background-color: #b9d0d9;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.outlet {
+  padding: 16px;
+}

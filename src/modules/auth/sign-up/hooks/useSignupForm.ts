@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
-import { SignUpInputs, SignUpResp } from "@modules/auth/types/signup.model";
-import authService from "@modules/auth/services/auth.service";
 import { useNavigate } from "react-router-dom";
+
+import PAGES from "@app/routes/paths";
 import { setLogin } from "@app/store/user/userSlice";
 import { useAppDispatch } from "@app/hooks/redux";
+import { SignUpInputs, SignUpResp } from "@modules/auth/types/signup.model";
+import authService from "@modules/auth/services/auth.service";
 
 const useSignupForm = () => {
   const { register, handleSubmit } = useForm<SignUpInputs>();
@@ -14,14 +16,13 @@ const useSignupForm = () => {
     localStorage.setItem("accessToken", "");
     dispatch(setLogin(false));
     authService.signUp(data).then((resp) => {
-      const { refreshToken, user }: SignUpResp = resp.data;
-      console.log("sign up response: ", user);
+      const { refreshToken }: SignUpResp = resp.data;
       // if successful:
       // save refreshToken in localstorage
-      // display a modal to go to login page
+      // TODO: display a modal to go to login page
       if (resp.statusText === "Created") {
         localStorage.setItem("refreshToken", refreshToken);
-        navigate("/login");
+        navigate(PAGES.login);
       }
     });
   }

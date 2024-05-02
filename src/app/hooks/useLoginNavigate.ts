@@ -14,7 +14,7 @@ const useLoginNavigate = () => {
     if (!isLoggedIn && !isLoading) {
       setVisible(true);
     } else {
-      navigate(PAGES.home);
+      navigate(PAGES.HOME);
       setVisible(false);
     }
   }, []);

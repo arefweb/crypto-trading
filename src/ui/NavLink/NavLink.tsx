@@ -1,10 +1,11 @@
-import { NavLink as BaseNavLink, NavLinkProps } from "@mantine/core";
+import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ReactNode } from "react";
+import { NavLink as BaseNavLink, NavLinkProps } from "@mantine/core";
 
 interface Props extends NavLinkProps {
   href: string;
   label: ReactNode | string;
+  component?: React.ElementType;
 }
 
 function NavLink(props: Props) {
@@ -15,5 +16,9 @@ function NavLink(props: Props) {
     </BaseNavLink>
   );
 }
+
+NavLink.defaultProps = {
+  component: null,
+};
 
 export default NavLink;

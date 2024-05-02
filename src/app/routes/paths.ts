@@ -1,8 +1,8 @@
 const PAGES = {
-  home: "/",
-  about: "/about",
-  login: "/login",
-  signUp: "sign-up",
+  HOME: "/",
+  ABOUT: "/about",
+  LOGIN: "/login",
+  SIGNUP: "sign-up",
 };
 
 export default PAGES;

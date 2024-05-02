@@ -22,7 +22,7 @@ const useSignupForm = () => {
       // TODO: display a modal to go to login page
       if (resp.statusText === "Created") {
         localStorage.setItem("refreshToken", refreshToken);
-        navigate(PAGES.login);
+        navigate(PAGES.LOGIN);
       }
     });
   }

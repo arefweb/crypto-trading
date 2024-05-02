@@ -14,7 +14,7 @@ function AppRoutes() {
       <Routes>
         <Route element={<PagesLayout />}>
           <Route
-            path={PAGES.home}
+            path={PAGES.HOME}
             element={(
               <RequireAuth>
                 <HomePage />
@@ -22,7 +22,7 @@ function AppRoutes() {
             )}
           />
           <Route
-            path={PAGES.about}
+            path={PAGES.ABOUT}
             element={(
               <RequireAuth>
                 <div><h3>About us</h3></div>
@@ -30,8 +30,8 @@ function AppRoutes() {
             )}
           />
         </Route>
-        <Route path={PAGES.login} element={<LoginPage />} />
-        <Route path={PAGES.signUp} element={<SignUpPage />} />
+        <Route path={PAGES.LOGIN} element={<LoginPage />} />
+        <Route path={PAGES.SIGNUP} element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
   );

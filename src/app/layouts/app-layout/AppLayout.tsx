@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import useLoginState from "@app/hooks/useLoginState";
+import { Center, LoadingOverlay } from "@mantine/core";
 
 interface Props {
   children: ReactNode
@@ -7,8 +8,13 @@ interface Props {
 
 function AppLayout({ children }: Props) {
   const { isLoading } = useLoginState();
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Center pos="relative" w="100%" h="90vh">
+        <LoadingOverlay visible zIndex={50} overlayProps={{ radius: "sm", blur: 2 }} />
+      </Center>
+    );
   }
 
   return (

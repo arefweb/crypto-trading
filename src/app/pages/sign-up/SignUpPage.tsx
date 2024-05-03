@@ -1,14 +1,30 @@
-import { Link } from "react-router-dom";
+import {
+  Divider, Group, Stack, Title, Text,
+} from "@mantine/core";
+
 import SignUpContainer from "@modules/auth/sign-up/components/SignUpContainer";
+import PAGES from "@app/routes/paths";
+import Link from "@/ui/Link/Link";
+
+import strings from "./strings";
 
 function SignUpPage() {
   return (
-    <div>
-      <h3>Sign Up</h3>
+    <Stack align="center" w={350}>
+      <Title order={3}>
+        {strings.signUp}
+      </Title>
+      <Divider size="xs" w="100%" />
+
       <SignUpContainer />
-      <p>Have an account?</p>
-      <Link to="/login">Login</Link>
-    </div>
+
+      <Group>
+        <Text c="gray.7" fz="md">
+          {strings.haveAcc}
+        </Text>
+        <Link to={PAGES.LOGIN}>{strings.login}</Link>
+      </Group>
+    </Stack>
   );
 }
 

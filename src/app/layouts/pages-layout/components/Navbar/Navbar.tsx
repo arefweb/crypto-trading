@@ -18,7 +18,7 @@ function Navbar({ opened, toggle }: Props) {
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group gap={8}>
             <IconMathPi color="white" size={25} strokeWidth={3.5} />
-            <Text c="white" fz="xxl" fw="800">{globalStrings.brandName}</Text>
+            <Text c="white" fz="3xl" fw="800">{globalStrings.brandName}</Text>
           </Group>
         </Group>
       </Box>

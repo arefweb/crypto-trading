@@ -6,6 +6,7 @@ import LoginPage from "@app/pages/login/LoginPage";
 import SignUpPage from "@app/pages/sign-up/SignUpPage";
 import PagesLayout from "@app/layouts/pages-layout/PagesLayout";
 
+import AuthLayout from "@app/layouts/auth-layout/AuthLayout";
 import PAGES from "./paths";
 
 function AppRoutes() {
@@ -30,8 +31,10 @@ function AppRoutes() {
             )}
           />
         </Route>
-        <Route path={PAGES.LOGIN} element={<LoginPage />} />
-        <Route path={PAGES.SIGNUP} element={<SignUpPage />} />
+        <Route element={<AuthLayout />}>
+          <Route path={PAGES.LOGIN} element={<LoginPage />} />
+          <Route path={PAGES.SIGNUP} element={<SignUpPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,6 @@
 const globalStrings = {
-  brandName: "Crypi",
+  brandName: "CryPi",
+  welcome: "Welcome!",
 };
 
 export default globalStrings;

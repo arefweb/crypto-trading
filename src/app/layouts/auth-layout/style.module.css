@@ -1,0 +1,47 @@
+.aside {
+  position: relative;
+  &::after {
+    content: "";
+    clip-path: polygon(0% 100%, 100% 0%, 0% 0%);
+    width: 8.75rem;
+    height: 100%;
+    position: absolute;
+    right: -8.75rem;
+    z-index: 0;
+    top: 0;
+    background-color: var(--mantine-color-primary-7);
+    box-shadow: 0.125rem 0 1.875rem rgba(0, 0, 0, 0.15);
+  }
+}
+
+.formArea {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.gaugeImg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@keyframes move1 {
+  0% {
+    -webkit-transform: rotate(-1deg) translate(-2px, -2px);
+    transform: rotate(-1deg) translate(-2px, -2px); }
+  50% {
+    -webkit-transform: rotate(1deg) translate(2px, 2px);
+    transform: rotate(1deg) translate(2px, 2px); }
+  100% {
+    -webkit-transform: rotate(-1deg) translate(-2px, -2px);
+    transform: rotate(-1deg) translate(-2px, -2px); }
+}
+
+.move_1 {
+  -webkit-animation: move1 5s infinite;
+  animation: move1 5s infinite; }
+
+.welcomeImg {
+  margin-top: 2.5rem;
+}

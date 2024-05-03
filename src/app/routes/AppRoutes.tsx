@@ -5,8 +5,8 @@ import HomePage from "@app/pages/home/HomePage";
 import LoginPage from "@app/pages/login/LoginPage";
 import SignUpPage from "@app/pages/sign-up/SignUpPage";
 import PagesLayout from "@app/layouts/pages-layout/PagesLayout";
-
 import AuthLayout from "@app/layouts/auth-layout/AuthLayout";
+
 import PAGES from "./paths";
 
 function AppRoutes() {

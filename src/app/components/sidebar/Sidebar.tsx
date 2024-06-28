@@ -21,6 +21,7 @@ function Sidebar() {
     <Box component="div" p="sm">
       {navRoutes.map((item) => (
         <NavLink
+          key={item.href}
           href={item.href}
           label={(
             <Text fz="md">

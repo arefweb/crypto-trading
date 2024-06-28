@@ -10,6 +10,7 @@ import verifyToken from "../middlewares/verifyToken";
 import verifyRefresh from "../middlewares/verifyRefresh";
 import refreshController from "../controllers/auth/refresh.controller";
 import userInfoController from "../controllers/userInfo.controller";
+import transactionsController from "../controllers/transactions.controller";
 
 function appRoutes(app) {
 
@@ -35,6 +36,8 @@ function appRoutes(app) {
   });
 
   app.get(paths.userInfo, verifyToken, userInfoController);
+
+  app.get(paths.transactions, verifyToken, transactionsController)
 }
 
 export default appRoutes;

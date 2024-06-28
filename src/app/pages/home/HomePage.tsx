@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GET } from "@app/services";
 import { Grid, Button, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import Transactions from "@modules/home/components/transactions/Transactions";
 
 function HomePage() {
   const username = useAppSelector((state) => state.user.username);
@@ -42,6 +43,9 @@ function HomePage() {
             {" "}
             {today}
           </Text>
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <Transactions />
         </Grid.Col>
       </Grid>
     </div>

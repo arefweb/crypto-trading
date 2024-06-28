@@ -1,6 +1,9 @@
-import axios, { AxiosHeaderValue, AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError, AxiosHeaderValue, AxiosRequestConfig, AxiosResponse,
+} from "axios";
 import { getAuthToken, BASE_URL } from "@app/services/config";
 import PATHS from "@app/services/paths";
+import { ENABLE_MOCK } from "@/env";
 
 export const http = axios.create({
   baseURL: BASE_URL,
@@ -17,6 +20,7 @@ interface HTTPService {
   refreshPromise: null | Promise<any>;
   refreshCaller: () => Promise<any>;
   apiMiddleware: (callOptions: AxiosRequestConfig) => Promise<any>;
+  errorLogger: (error: unknown) => void;
 }
 
 const HTTP_SERVICE: HTTPService = {
@@ -49,22 +53,36 @@ const HTTP_SERVICE: HTTPService = {
             return Promise.resolve(resp);
           });
         }).catch((e) => {
+          this.errorLogger(e);
           return Promise.reject(e);
         }).finally(() => {
           this.refreshPromise = null;
         });
       }
+      this.errorLogger(error);
       return Promise.reject(error);
     });
   },
+  errorLogger(error) {
+    console.log("Error in logger >> ", error);
+  },
 };
 
-export function GET(
+export function GET<D>(
   url: string,
   customHeaders?: Omit<AxiosHeaderValue, "Authorization">,
   config?: Omit<AxiosRequestConfig, "url" | "method" | "headers">,
   disableAuth?: boolean,
+  mockConfig?: Partial<AxiosResponse<D>> | Partial<AxiosError<D>>,
 ) {
+  if (ENABLE_MOCK) {
+    if (mockConfig && "data" in mockConfig) {
+      return Promise.resolve(mockConfig);
+    }
+    if (mockConfig && "message" in mockConfig) {
+      return Promise.reject(mockConfig);
+    }
+  }
   return HTTP_SERVICE.apiMiddleware({
     method: "GET",
     url,

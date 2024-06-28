@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAppSelector } from "@app/hooks/redux";
+import { useAppSelector } from "@app/store/redux";
 import PAGES from "@app/routes/paths";
 
 const useLoginNavigate = () => {

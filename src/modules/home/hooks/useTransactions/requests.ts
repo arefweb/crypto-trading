@@ -1,7 +1,7 @@
 import { GET } from "@app/services";
 
-import { ResponseBody } from "../types/transactions.model";
-import PATHS from "./paths";
+import { ResponseBody } from "./types";
+import TRANSACTIONS_PATH from "./constants";
 
 function transform({ data }: ResponseBody) {
   const entities = data?.map(({
@@ -45,9 +45,9 @@ const mockConfig = {
 //   message: "Server has encountered some strange error!",
 // };
 
-const homeService = {
-  getTransactions: () => GET(
-    PATHS.transactions,
+const transactions = {
+  getData: () => GET(
+    TRANSACTIONS_PATH,
     undefined,
     undefined,
     undefined,
@@ -56,4 +56,4 @@ const homeService = {
     .then(transform),
 };
 
-export default homeService;
+export default transactions;

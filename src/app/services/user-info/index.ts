@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@app/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@app/store/redux";
 import { setLoading, setLogin, setUsername } from "@app/store/user/userSlice";
-import userInfoService from "@app/services/user-info/userInfo.service";
-import { UserInfoModel } from "@app/services/user-info/types/userInfo.model";
 
-const useLoginState = () => {
+import userInfo from "./requests";
+import { UserInfoModel } from "./types";
+
+const useUserInfo = () => {
   const { isLoading, username: userName, isLoggedIn } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!userName) {
       dispatch(setLoading(true));
-      userInfoService.getUser().then((resp) => {
+      userInfo.getData().then((resp) => {
         const { username }: UserInfoModel = resp.data;
         if (resp.statusText === "OK") {
           dispatch(setLogin(true));
@@ -32,4 +33,4 @@ const useLoginState = () => {
   return { isLoading };
 };
 
-export default useLoginState;
+export default useUserInfo;

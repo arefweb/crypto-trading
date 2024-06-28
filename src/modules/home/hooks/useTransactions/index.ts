@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import QueryKeys from "@app/constants/query-keys";
 
-import homeService from "../../services/home.service";
+import transactions from "./requests";
 
 const useTransactions = () => {
-  const queryFn = () => homeService.getTransactions();
+  const queryFn = () => transactions.getData();
   const queryKey = [QueryKeys.TRANSACTIONS];
 
   const {

@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import PAGES from "@app/routes/paths";
 import { setLogin } from "@app/store/user/userSlice";
-import { useAppDispatch } from "@app/hooks/redux";
-import { SignUpInputs, SignUpResp } from "@modules/auth/types/signup.model";
-import authService from "@modules/auth/services/auth.service";
+import { useAppDispatch } from "@app/store/redux";
+
+import signUpService from "./requests";
+import { SignUpInputs, SignUpResp } from "./types";
 
 const useSignupForm = () => {
   const { register, handleSubmit } = useForm<SignUpInputs>();
@@ -15,7 +16,7 @@ const useSignupForm = () => {
   function onSubmit(data: SignUpInputs) {
     localStorage.setItem("accessToken", "");
     dispatch(setLogin(false));
-    authService.signUp(data).then((resp) => {
+    signUpService.postData(data).then((resp) => {
       const { refreshToken }: SignUpResp = resp.data;
       // if successful:
       // save refreshToken in localstorage

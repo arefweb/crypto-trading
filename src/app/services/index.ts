@@ -64,6 +64,7 @@ const HTTP_SERVICE: HTTPService = {
     });
   },
   errorLogger(error) {
+    // eslint-disable-next-line no-console
     console.log("Error in logger >> ", error);
   },
 };

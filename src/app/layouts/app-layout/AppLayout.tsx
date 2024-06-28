@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import useLoginState from "@app/hooks/useLoginState";
+import useUserInfo from "@app/services/user-info";
 import { Center, LoadingOverlay } from "@mantine/core";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 function AppLayout({ children }: Props) {
-  const { isLoading } = useLoginState();
+  const { isLoading } = useUserInfo();
 
   if (isLoading) {
     return (

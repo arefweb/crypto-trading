@@ -1,9 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@app/hooks/redux";
 import { useForm } from "react-hook-form";
-import { LoginInputs, LoginResp } from "@modules/auth/types/login.model";
-import authService from "@modules/auth/services/auth.service";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@app/store/redux";
 import { setLogin, setUsername } from "@app/store/user/userSlice";
+
+import { LoginInputs, LoginResp } from "./types";
+import loginService from "./requests";
 
 const useLoginForm = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const useLoginForm = () => {
 
   function onSubmit(data: LoginInputs) {
     const hasRefresh = localStorage.getItem("refreshToken");
-    authService.login(
+    loginService.postData(
       data,
       { ...(!hasRefresh && { issue_refresh: true }) },
     ).then((resp) => {

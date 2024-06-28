@@ -1,4 +1,4 @@
-import { useAppSelector } from "@app/hooks/redux";
+import { useAppSelector } from "@app/store/redux";
 import { useEffect, useState } from "react";
 import { GET } from "@app/services";
 import { Grid, Button, Text } from "@mantine/core";

@@ -5,7 +5,7 @@ import { IconLogout } from "@tabler/icons-react";
 
 import PAGES from "@app/routes/paths";
 import { setLogin } from "@app/store/user/userSlice";
-import { useAppDispatch } from "@app/hooks/redux";
+import { useAppDispatch } from "@app/store/redux";
 import NavLink from "@/ui/NavLink/NavLink";
 
 type Props = {
